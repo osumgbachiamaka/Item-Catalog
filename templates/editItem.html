@@ -1,0 +1,31 @@
+<!Doctype html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <main>
+            <article>
+                <h2>Edit Item</h2>
+                <form action="" method="POST">
+                    <label for="title">Title</label>
+                <input id="title" type="text" name="title" value="{{item.Items.name}}" />
+
+                <label for="decription">Description</label>
+                <input id="description" type="text" name="description" value="{{item.Items.description}}" />
+                
+                <label for="category">Title</label>
+                <input id="category" list="categories" type="text" name="category" value="{{item.name}}" />
+                    <datalist id="categories">
+                        {% for category in categories %}
+                        <option value="{{category.name}}">
+                            {% endfor %}
+                    </datalist>
+                <input type="text" style="display: none" value="{{item.Items.id}}" name="id" />
+                <button type="submit">Submit</button>
+                </form>
+                
+            </article>
+        </main>
+    </body>
+</html>

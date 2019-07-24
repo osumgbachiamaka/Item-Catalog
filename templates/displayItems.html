@@ -1,0 +1,22 @@
+<!Doctype html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <main>
+            <article>
+                <h2>Categories</h2>
+                {% for category in categories %}
+               <a href="/catalog/{{category.name}}/items"><p>{{category.name}}</p></a>
+                {% endfor %}
+            </article>
+            <article>
+                <h2>{{cat[0][1]}} Items ({{cat.count()}} items)</h2>
+                {% for c in cat %}
+                <a href="/catalog/{{c[1]}}/{{c[0]}}"><p>{{c[0]}}</p></a>
+                {% endfor%}
+            </article>
+        </main>
+    </body>
+</html>

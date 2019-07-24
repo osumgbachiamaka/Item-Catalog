@@ -1,0 +1,23 @@
+<!Doctype html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <main>
+            <article>
+                <form action="{{ url_for('newItem')}}" method="POST">
+                    <input type="text" placeholder="Item Name" name="item"/>
+                    <input type="text" list="categories" name="category" placeholder="Choose Category" />
+                    <datalist id="categories">
+                            {% for category in categories %}
+                            <option value="{{category.name}}">
+                             {% endfor %}
+                    </datalist>
+                    <textarea cols="30" rows="6" placeholder="Item Description" name="description"></textarea>
+                    <button type="submit">create</button>
+                </form>
+            </article>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,18 @@
+<!Doctype html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <main>
+            <article>
+                {% for i in item %}
+                <h2>{{i.name}}</h2>
+               <p>{{i.description}}</p>
+               <a href="/catalog/{{i.name}}/edit">Edit</a> | 
+               <a href="/catalog/{{i.name}}/delete">Delete</a>
+                {% endfor%}
+            </article>
+        </main>
+    </body>
+</html>

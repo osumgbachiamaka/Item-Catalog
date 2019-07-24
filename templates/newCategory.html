@@ -1,0 +1,23 @@
+<!Doctype html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <main>
+            <article>
+                <form action="{{ url_for('newCategory')}}" method = 'post'>
+
+                    <dl>
+                        <dt>Name:</dt>
+                            <dd><input type ='text' size='30' name='name'></dd>
+                    </dl>
+                    
+                     
+                    <input type='submit' value='Create'>
+                    
+                    </form>
+            </article>
+        </main>
+    </body>
+</html>
