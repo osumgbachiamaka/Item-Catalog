@@ -1,9 +1,8 @@
-# Log-Analysis
-An internal reporting tool that will use information from the database to discover what kind of articles the site's readers like.
+# Item Catalog
+An application that provides a list of animals within a variety of species as well as provide a user registration and authentication system. Registered users will have the ability to post, edit and delete their own items.
 
 ## Project Description
-Your task is to create a reporting tool that prints out reports (in plain text) based on the data in the database. 
-This reporting tool is a Python program using the psycopg2 module to connect to the database.
+Project implements a RESTful web application using the Python framework Flask along with implementing third-party OAuth authentication. Also the proper use of the various HTTP methods available and how these methods relate to CRUD (create, read, update and delete) operations.
 
 ## Installing the Virtual Machine
 In the next part of this course, you'll use a virtual machine (VM) to run an SQL database server and a web app that uses it. The VM is a Linux server system that runs on top of your own computer. You can share files easily between your computer and the VM; and you'll be running a web service inside the VM which you'll be able to access from your regular browser.
@@ -26,57 +25,22 @@ You can download and unzip this file: FSND-Virtual-Machine.zip from here ```http
 From your terminal, inside the vagrant subdirectory, run the command ```bash vagrant up.``` This will cause Vagrant to download the Linux operating system and install it. This may take quite a while (many minutes) depending on how fast your Internet connection is. When ```bash vagrant up``` is finished running, you will get your shell prompt back. At this point, you can run ```bash vagrant ssh``` to log in to your newly installed Linux VM! 
 Inside the VM, change directory to ``` /vagrant``` and look around with ```ls```. The PostgreSQL database server will automatically be started inside the VM. You can use the ```python psql``` command-line tool to access it and run SQL statements:
 
-## Download the sql data
-Next, download the data here ```https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip```. You will need to unzip this file after downloading it. The file inside is called newsdata.sql. Put this file into the vagrant directory, which is shared with your virtual machine.
-To load the data, ``cd`` into the vagrant directory and use the command ``psql -d news -f newsdata.sql``.
-Here's what this command does:
+## Create and populate the sqlite database
+Clone this project and unzip it. 
+Change directory into the project folder ``` cd Item-Catalog ```. Run ``python populatecategories.py `` this will create populate the database with dummy values.
+To start the application, ``python app.py`` Your application will be started on  ``http://localhost:8000/`` or ``http://localhost:8000/catalog/``
 
-``psql`` — the PostgreSQL command line program
-``-d news`` — connect to the database named news which has been set up for you
-``-f newsdata.sql`` — run the SQL statements in the file newsdata.sql
-connect to your newly created database using ``psql news``
-
-## Questions
-What are the most popular three articles of all time? Which articles have been accessed the most? Present this information as a sorted list with the most popular article at the top
-
-Who are the most popular article authors of all time? That is, when you sum up all of the articles each author has written, which authors get the most page views? Present this as a sorted list with the most popular author at the top.
-
-On which days did more than 1% of requests lead to errors? The log table includes a column status that indicates the HTTP status code that the news site sent to the user's browser.
-
-## How to run
-load the data onto the database
+## Json Endpoints
+Json api endpoints can be accessed on the following ports
 ```python
-psql -d news -f newsdata.sql
+http://localhost:8000/items/catalog.json
 ```
 connect to the database
 ```python
-psql -d news
-```
-## Create Views
-
-```python
-create view total_web_view as select date(time), count (*) as views from log 
-group by date(time) order by date(time);
-```
-
-```python
-create view error_web_view as select date(time), count (*) as views from log 
-where status != '200 OK' group by date(time) order by date(time);
+http://localhost:8000/catalog/<string:category_name>/<string:item_name>/JSON
 ```
 ```python
-create view main as select total_web_view.date, (100.00 * error_web_view.views / total_web_view.views) 
-as error_percentage from total_web_view 
-join error_web_view 
-on total_web_view.date = error_web_view.date 
-order by date; 
-```
-## Running the web app:
-Run the app using:
-```python
-  $ python app.py
-```
-```python
-  open http://localhost:8000/
+http://localhost:8000/catalog/<string:category_name>/JSON
 ```
 ## Author
 This project was created and built by Osumgba Chiamaka popularly known as pearl in the tech community
