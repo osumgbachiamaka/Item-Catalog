@@ -1,31 +1,40 @@
-<!Doctype html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "sidebar.html" %}
+    <div class="content-wrapper">
+        <!-- Main content -->
         <main>
             <article>
-                <h2>Edit Item</h2>
+                <h2>Edit {{item.Items.name}}</h2>
                 <form action="" method="POST">
-                    <label for="title">Title</label>
-                <input id="title" type="text" name="title" value="{{item.Items.name}}" />
-
-                <label for="decription">Description</label>
-                <input id="description" type="text" name="description" value="{{item.Items.description}}" />
-                
-                <label for="category">Title</label>
-                <input id="category" list="categories" type="text" name="category" value="{{item.name}}" />
-                    <datalist id="categories">
-                        {% for category in categories %}
-                        <option value="{{category.name}}">
-                            {% endfor %}
-                    </datalist>
-                <input type="text" style="display: none" value="{{item.Items.id}}" name="id" />
-                <button type="submit">Submit</button>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="title">Animal Name</label>
+                            <input id="title" type="text" class="form-control" name="title" value="{{item.Items.name}}" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="category">Animal Category</label>
+                            <input id="category" list="categories" type="text" class="form-control" name="category" value="{{item.name}}" />
+                                <datalist id="categories">
+                                    {% for category in categories %}
+                                    <option value="{{category.name}}">
+                                        {% endfor %}
+                                </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decription">Animal Description</label>
+                        <input id="description" type="text" class="form-control" name="description" value="{{item.Items.description}}" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" style="display: none" value="{{item.Items.id}}" name="id" />
+                        <button class="btn btn-success" type="submit">Submit</button>
+                        <button class="btn btn-warning">Cancel</button>
+                    </div>
                 </form>
                 
             </article>
         </main>
-    </body>
-</html>
+    </div>
+{% endblock %}

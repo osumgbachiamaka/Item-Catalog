@@ -1,24 +1,47 @@
-<!Doctype html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "sidebar.html" %}
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+            <!--Total-->
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                    <p><strong>All Species</strong></p>
+                    <h3>{{categories.count()}}</h3>
+                    </div>
+                </div>
+                </div>
+                <div class="col-lg-2 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                    <p><strong>Animals</strong></p>
+                    <h3>{{items.count()}}</h3>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
         <main>
-            <article>
-                <h2>Categories</h2>
-                {% for category in categories %}
-               <a href="/catalog/{{category.name}}/items"><p>{{category.name}}</p></a>
-                {% endfor %}
-            </article>
-            <article>
-                <a href="/catalog/new">Add Item</a>
-                <h2>Newest Items</h2>
-                {{items}}
-                {% for item in items %}
-                <p>{{item[0]}} <span><i>({{item[1]}})</i></span></p>
+            <h3>Newest Items</h3>
+            <div class="card-deck">
+                {% for item in items.limit(3) %}
+                <div class="card">
+                    <img src="/static/images/download.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">{{item[0]}}</h5><span><i>({{item[1]}})</i></span>
+                    
+                    <p class="card-text"><small class="text-muted"><a href="/catalog/{{item[1]}}/{{item[0]}}">Details</a></small></p>
+                    </div>
+                </div>
                 {% endfor%}
-            </article>
+            </div>      
         </main>
-    </body>
-</html>
+        
+    </div>
+{% endblock %}

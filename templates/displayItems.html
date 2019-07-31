@@ -1,22 +1,36 @@
-<!Doctype html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-        <main>
-            <article>
-                <h2>Categories</h2>
-                {% for category in categories %}
-               <a href="/catalog/{{category.name}}/items"><p>{{category.name}}</p></a>
-                {% endfor %}
-            </article>
-            <article>
-                <h2>{{cat[0][1]}} Items ({{cat.count()}} items)</h2>
-                {% for c in cat %}
-                <a href="/catalog/{{c[1]}}/{{c[0]}}"><p>{{c[0]}}</p></a>
-                {% endfor%}
-            </article>
-        </main>
-    </body>
-</html>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "sidebar.html" %}
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section>
+            <a href="/catalog/new">
+                <button class="btn btn-outline-dark" id="new-menu-item">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Add New Animal
+                </button>
+            </a>
+        </section>
+        <section class="content">
+            <main>
+                <article>
+                    <h2 class="text-center">{{cat[0][1]}} ({{cat.count()}} items)</h2>
+                    <div class="card-deck">
+                            {% for c in cat %}
+                            <div class="card">
+                                <img src="/static/images/download.jpeg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                <h5 class="card-title">{{c[0]}}</h5><span><i>({{c[1]}})</i></span>
+
+                                <p class="card-text"><small class="text-muted"><a href="/catalog/{{c[1]}}/{{c[0]}}">Details</a></small></p>
+                                </div>
+                            </div>
+                            {% endfor%}
+                        </div>
+
+                    
+                </article>
+            </main>
+        </section>
+    </div>
+{% endblock %}

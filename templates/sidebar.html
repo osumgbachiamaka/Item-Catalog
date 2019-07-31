@@ -1,0 +1,64 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar bg-dark">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar text-decoration-none">
+      <!-- Sidebar user panel -->
+      <h5 class="my-0 mr-md-auto font-weight-normal font-italic text-center">
+        <a class="text-decoration-none btn btn-outline-warning btn-block" href="{{url_for('index')}}" style="font-size: 2rem">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"> </span>
+          Pearl Zoo Keeper
+        </a>
+      </h5>
+      {%if 'username' in login%}
+        <div class="user text-center">
+          <img src="{{login.picture}}" alt="{{login.username}}"><br />
+          <span>{{login.username}}</span>
+        </div>
+      {%endif%}
+      <div class="side">
+        <ul class="sidebar-menu" data-widget="tree">
+          <li class="treeview">
+            <a href="">
+              <i class="fa fa-folder"></i> <span>Categories</span>
+              <span class="pull-right-container">
+                  <small class="label pull-right bg-green" style="width:20px; text-align:center">{{categories.count()}}</small>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                  {% for category in categories %}
+                  <li>
+                    <a href="/catalog/{{category.name}}/items"><i class="fa fa-circle-o"></i>{{category.name}}</a>
+                    {% endfor %}
+                  </li>
+            </ul>
+          </li>
+          <li>
+              <a href="/catalog/new">
+                <button class="btn btn-outline-warning" id="new-menu-item">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Add New Animal
+                </button>
+            </a>
+          </li>
+          {%if 'username' not in login%}
+            <li class="">
+              <a href="{{url_for('showLogin')}}">
+                  <button class="btn btn-outline-success" id="new-menu-item">
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"> </span> Login
+                  </button>
+              </a>
+            </li>
+          {%endif%}
+          {%if 'username' in login%}
+          <li class="">
+            <a href="{{url_for('gdisconnect')}}">
+              <button class="btn btn-outline-danger" id="new-menu-item">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"> </span> Logout
+              </button>
+            </a>
+          </li>
+          {%endif%}
+        </ul>
+      </div>
+    </section>
+    <!-- /.sidebar -->
+  </aside>

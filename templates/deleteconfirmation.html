@@ -1,19 +1,27 @@
-<!Doctype html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "sidebar.html" %}
+    <div class="content-wrapper">
+        <!-- Main content -->
         <main>
-            <article>
-                <h1> Are you sure you want to delete {{item.Items.name}}? </h1>
-                <form action="{{ url_for('deleteItem', item_name=item.Items.name)}}" method = 'post'>
-                <input type='submit' value = 'Delete'>
-                </form>
-                <a href = '{{url_for('itemDetails', category_name = item.name, item_name = item.Items.name)}}'> Cancel </a>
+                <div class="card" style="width: 92%;">
+                    <img src="..." class="card-img-top" alt="{{item.Items.name}}">
+                    <div class="card-body">
+                        <h3 class="card-title">Are you sure you want to delete {{item.Items.name}}? </h3>
+                        <form action="{{ url_for('deleteItem', item_name=item.Items.name)}}" method = 'post'>
+                            <input class="btn btn-danger" type='submit' value = 'Delete'>
+                            <a class="btn btn-warning" href = '{{url_for('itemDetails', category_name = item.name, item_name = item.Items.name)}}'> Cancel </a>
+                        </form>
+                        
+                    </div>
+                </div>
+                <h1> </h1>
+                
+                
 
                 
             </article>
         </main>
-    </body>
-</html>
+    </div>
+{% endblock %}

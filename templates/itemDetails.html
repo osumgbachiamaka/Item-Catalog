@@ -1,18 +1,27 @@
-<!Doctype html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "sidebar.html" %}
+    <div class="content-wrapper">
+        <!-- Main content -->
         <main>
-            <article>
-                {% for i in item %}
-                <h2>{{i.name}}</h2>
-               <p>{{i.description}}</p>
-               <a href="/catalog/{{i.name}}/edit">Edit</a> | 
-               <a href="/catalog/{{i.name}}/delete">Delete</a>
-                {% endfor%}
-            </article>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="/static/images/download.jpeg" class="card-img-top" alt="...">
+                </div>
+                <div class="col-md-6">
+                    <article>
+                        {% for i in item %}
+                        <h2>{{i.name}}</h2>
+                        <p>{{i.description}}</p>
+                        {%if 'username' in login%}
+                            <a href="/catalog/{{i.name}}/edit">Edit</a> | 
+                            <a href="/catalog/{{i.name}}/delete">Delete</a>
+                        {% endif %}
+                        {% endfor%}
+                    </article>
+                </div>
+            </div>
         </main>
-    </body>
-</html>
+    </div>
+{% endblock %}
