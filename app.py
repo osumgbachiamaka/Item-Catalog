@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
 from sqlalchemy import create_engine, desc, asc, and_, insert
 from sqlalchemy.orm import sessionmaker
-from dataBase_setup import Base, Categories, Items
+from dataBase_setup import Base, Categories, Items, Users
 
 # New imports for this step
 from flask import session as login_session
@@ -23,7 +23,8 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Item-Catalog Application"
 
-engine = create_engine('sqlite:///categoriesitem.db')
+engine = create_engine('sqlite:///categoriesitemwithusers.db')
+# engine = create_engine('sqlite:///categoriesitem.db')
 # engine = create_engine('postgresql://scott:tiger@localhost/categoriesitem')
 Base.metadata.bind = engine
 
@@ -149,7 +150,7 @@ def gdisconnect():
     result = h.request(url, 'GET')[0]
     print 'result is '
     print result
-    if result['status'] == '200':
+    if result:
         del login_session['access_token']
         del login_session['gplus_id']
         del login_session['username']
@@ -157,12 +158,37 @@ def gdisconnect():
         del login_session['picture']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
-        return response
+        return redirect(url_for('index'))
     else:
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
 #end of google login validation
+# User Helper Functions
+
+
+def createUser(login_session):
+    newUser = Users(name=login_session['username'], email=login_session[
+                   'email'], picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(Users).filter_by(email=login_session['email']).one()
+    return user.id
+
+
+def getUserInfo(user_id):
+    user = session.query(Users).filter_by(id=user_id).one()
+    return user
+
+
+def getUserID(email):
+    try:
+        user = session.query(Users).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
+
+# DISCONNECT - Revoke a current user's token and reset their login_session
 
 
 @app.route('/')
