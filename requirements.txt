@@ -14,7 +14,6 @@ capstone==3.0.5
 certifi==2018.8.24
 chardet==3.0.4
 Cheetah3==3.1.0
-## FIXME: could not find svn URL in dependency_links for this package:
 chirp===daily-20190104
 Click==7.0
 click-plugins==1.0.4
